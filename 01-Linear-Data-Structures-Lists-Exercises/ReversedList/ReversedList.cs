@@ -11,12 +11,11 @@ public class ReversedList<T> : IEnumerable<T>
     public ReversedList(int capacity = DefaultCapacity)
     {
         this.collection = new T[capacity];
-        this.Capacity = capacity;
     }
 
     public int Count { get; private set; }
 
-    public int Capacity { get; private set; }
+    public int Capacity => this.collection.Length;
 
     private int ReversedIndex(int index) => this.Count - 1 - index;
 
@@ -62,9 +61,7 @@ public class ReversedList<T> : IEnumerable<T>
 
     private void Resize()
     {
-        this.Capacity *= 2;
-
-        var newCollection = new T[this.Capacity];
+        var newCollection = new T[this.Capacity * 2];
         Array.Copy(this.collection, newCollection, this.Count);
 
         this.collection = newCollection;
