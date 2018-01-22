@@ -3,7 +3,7 @@
 public class LinkedStack<T>
 {
     private Node top;
-        
+
     public int Count { get; private set; }
 
     public void Push(T element)
@@ -22,7 +22,7 @@ public class LinkedStack<T>
         var removedElement = this.top.Value;
         this.top = this.top.NextNode;
         this.Count--;
-        
+
         return removedElement;
     }
 
@@ -48,8 +48,8 @@ public class LinkedStack<T>
             this.NextNode = nextNode;
         }
 
-        public T Value { get; set; }
+        public T Value { get; private set; }
 
-        public Node NextNode { get; set; }
+        public Node NextNode { get; private set; }
     }
 }
