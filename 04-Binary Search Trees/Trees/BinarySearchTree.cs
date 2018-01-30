@@ -111,12 +111,15 @@ public class BinarySearchTree<T> where T : IComparable<T>
 
     public IEnumerable<T> Range(T startRange, T endRange)
     {
-        var queue = new Queue<T>();
+        var range = new Queue<T>();
 
-        this.Range(this.root, queue, startRange, endRange);
+        this.Range(this.root, range, startRange, endRange);
 
-        return queue;
+        return range;
     }
+
+    //public IEnumerable<T> Range(T startRange, T endRange)
+    //    => this.Range(this.root, startRange, endRange);
 
     public void EachInOrder(Action<T> action)
         => this.EachInOrder(this.root, action);
@@ -193,6 +196,38 @@ public class BinarySearchTree<T> where T : IComparable<T>
             this.Range(node.Right, queue, startRange, endRange);
         }
     }
+
+    private IEnumerable<T> Range(Node node, T startRange, T endRange)
+    {
+        if (node == null)
+        {
+            yield break;
+        }
+
+        var nodeInLowerRange = startRange.CompareTo(node.Value);
+        var nodeInHigherRange = endRange.CompareTo(node.Value);
+
+        if (nodeInLowerRange < 0) // start < node
+        {
+            foreach (var element in this.Range(node.Left, startRange, endRange))
+            {
+                yield return element;
+            }
+        }
+
+        if (nodeInLowerRange <= 0 && nodeInHigherRange >= 0) // start <= node <= end
+        {
+            yield return node.Value;
+        }
+
+        if (nodeInHigherRange > 0) // node < end
+        {
+            foreach (var element in this.Range(node.Right, startRange, endRange))
+            {
+                yield return element;
+            }
+        }
+    }
 }
 
 public class Launcher
@@ -209,5 +244,12 @@ public class Launcher
         tree.Insert(25);
 
         tree.EachInOrder(Console.WriteLine);
+
+        foreach (var element in tree.Range(9, 19))
+        {
+            Console.WriteLine(element);
+        }
+
+        var searchTree = tree.Search(19);
     }
 }
