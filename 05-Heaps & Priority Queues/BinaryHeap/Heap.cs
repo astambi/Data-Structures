@@ -4,7 +4,7 @@ public static class Heap<T> where T : IComparable<T>
 {
     public static void Sort(T[] arr)
     {
-        ConstructHeap(arr);
+        ConstructHeap(arr); // max heap
         Console.WriteLine($"Heap: {string.Join(" ", arr)}");
 
         SortHeap(arr);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class BinaryHeap<T> where T : IComparable<T>
 {
-    private List<T> heap;
+    private List<T> heap; // max heap
 
     public BinaryHeap()
     {
@@ -50,7 +50,7 @@ public class BinaryHeap<T> where T : IComparable<T>
     private void HeapifyUpIterative(int current)
     {
         while (current > 0
-            && this.IsGreaterThan(current, (current - 1) / 2))
+            && this.IsGreaterThan(current, (current - 1) / 2)) // max heap
         {
             this.Swap(current, (current - 1) / 2);
             current = (current - 1) / 2;
@@ -61,7 +61,7 @@ public class BinaryHeap<T> where T : IComparable<T>
     {
         var parent = (current - 1) / 2;
 
-        if (this.IsGreaterThan(current, parent))
+        if (this.IsGreaterThan(current, parent)) // max heap
         {
             this.Swap(current, parent);
             this.HeapifyUpRecursive(parent);
@@ -75,12 +75,12 @@ public class BinaryHeap<T> where T : IComparable<T>
             var maxChild = 2 * current + 1;
 
             if (maxChild < this.Count - 1
-                && this.IsGreaterThan(maxChild + 1, maxChild))
+                && this.IsGreaterThan(maxChild + 1, maxChild)) // max heap
             {
                 maxChild++;
             }
 
-            if (this.IsGreaterThan(current, maxChild))
+            if (this.IsGreaterThan(current, maxChild)) // max heap
             {
                 break;
             }
@@ -99,12 +99,12 @@ public class BinaryHeap<T> where T : IComparable<T>
         }
 
         if (maxChild < this.Count - 1
-            && this.IsGreaterThan(maxChild + 1, maxChild))
+            && this.IsGreaterThan(maxChild + 1, maxChild)) // max heap
         {
             maxChild++;
         }
 
-        if (this.IsGreaterThan(maxChild, current))
+        if (this.IsGreaterThan(maxChild, current)) // max heap 
         {
             this.Swap(current, maxChild);
             this.HeapifyDownRecursive(maxChild);
