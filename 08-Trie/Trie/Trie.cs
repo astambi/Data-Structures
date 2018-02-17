@@ -8,7 +8,9 @@ public class Trie<Value>
     private class Node
     {
         public Value val;
+
         public bool isTerminal;
+
         public Dictionary<char, Node> next = new Dictionary<char, Node>();
     }
 
@@ -56,15 +58,22 @@ public class Trie<Value>
             return node;
         }
 
+        var currentChar = key[index];
+        var nextNode = NextNode(node, currentChar);
+
+        return this.GetNode(nextNode, key, index + 1);
+    }
+
+    private Node NextNode(Node node, char currentChar)
+    {
         Node nextNode = null;
-        char currentChar = key[index];
 
         if (node.next.ContainsKey(currentChar))
         {
             nextNode = node.next[currentChar];
         }
 
-        return this.GetNode(nextNode, key, index + 1);
+        return nextNode;
     }
 
     private Node Insert(Node node, string key, Value val, int index)
@@ -81,13 +90,8 @@ public class Trie<Value>
             return node;
         }
 
-        Node nextNode = null;
         var currentChar = key[index];
-
-        if (node.next.ContainsKey(currentChar))
-        {
-            nextNode = node.next[currentChar];
-        }
+        var nextNode = NextNode(node, currentChar);
 
         node.next[currentChar] = this.Insert(nextNode, key, val, index + 1);
 
