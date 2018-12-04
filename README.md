@@ -1,2 +1,2 @@
 # Data-Structures
-Data Structures - January 2018 @ SoftUni
+Data Structures - 2018 @ SoftUni
