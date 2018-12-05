@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{933A03F0-5B28-48B0-B47E-BC83B2A016E3}</ProjectGuid>
+    <ProjectGuid>{334A3144-2BBD-4D21-AD38-631D9E05CDDD}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ReversedList</RootNamespace>
-    <AssemblyName>ReversedList</AssemblyName>
+    <RootNamespace>DistanceInLabyrinth</RootNamespace>
+    <AssemblyName>DistanceInLabyrinth</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -44,7 +45,6 @@
   <ItemGroup>
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReversedList.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

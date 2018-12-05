@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Linear-Data-Structures-Lists")]
+[assembly: AssemblyTitle("DistanceInLabyrinth")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Linear-Data-Structures-Lists")]
+[assembly: AssemblyProduct("DistanceInLabyrinth")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("8e524b7c-186f-4551-9073-0cc60a56bed5")]
+[assembly: Guid("334a3144-2bbd-4d21-ad38-631d9e05cddd")]
 
 // Version information for an assembly consists of the following four values:
 //
