@@ -4,26 +4,24 @@ using System.Collections.Generic;
 
 public class DoublyLinkedList<T> : IEnumerable<T>
 {
-    private ListNode head;
-    private ListNode tail;
+    private ListNode<T> head;
+    private ListNode<T> tail;
 
     public int Count { get; private set; }
 
     public void AddFirst(T element)
     {
-        var newHead = new ListNode(element);
-
-        var oldHead = this.head;
-        this.head = newHead;
-
         if (this.Count == 0)
         {
-            this.tail = newHead;
+            this.head = this.tail = new ListNode<T>(element);
         }
         else
         {
-            this.head.Next = oldHead;
-            oldHead.Previous = this.head;
+            var newHead = new ListNode<T>(element);
+            newHead.NextNode = this.head;
+
+            this.head.PrevNode = newHead;
+            this.head = newHead;
         }
 
         this.Count++;
@@ -31,19 +29,16 @@ public class DoublyLinkedList<T> : IEnumerable<T>
 
     public void AddLast(T element)
     {
-        var newTail = new ListNode(element);
-
-        var oldTail = this.tail;
-        this.tail = newTail;
-
         if (this.Count == 0)
         {
-            this.head = newTail;
+            this.head = this.tail = new ListNode<T>(element);
         }
         else
         {
-            oldTail.Next = this.tail;
-            this.tail.Previous = oldTail;
+            var newTail = new ListNode<T>(element);
+            newTail.PrevNode = this.tail;
+            this.tail.NextNode = newTail;
+            this.tail = newTail;
         }
 
         this.Count++;
@@ -53,23 +48,22 @@ public class DoublyLinkedList<T> : IEnumerable<T>
     {
         if (this.Count == 0)
         {
-            throw new InvalidOperationException();
+            throw new InvalidOperationException("List empty");
         }
 
         var removedElement = this.head.Value;
 
-        this.head = this.head.Next;
-        this.Count--;
-
-        if (this.Count == 0)
+        this.head = this.head.NextNode;
+        if (this.head != null)
         {
-            this.tail = null;
+            this.head.PrevNode = null;
         }
         else
         {
-            this.head.Previous = null;
+            this.tail = null;
         }
 
+        this.Count--;
         return removedElement;
     }
 
@@ -77,45 +71,42 @@ public class DoublyLinkedList<T> : IEnumerable<T>
     {
         if (this.Count == 0)
         {
-            throw new InvalidOperationException();
+            throw new InvalidOperationException("List empty");
         }
 
         var removedElement = this.tail.Value;
 
-        this.tail = this.tail.Previous;
-        this.Count--;
-
-        if (this.Count == 0)
+        this.tail = this.tail.PrevNode;
+        if (this.tail != null)
         {
-            this.head = null;
+            this.tail.NextNode = null;
         }
         else
         {
-            this.tail.Next = null;
+            this.head = null;
         }
 
+        this.Count--;
         return removedElement;
     }
 
     public void ForEach(Action<T> action)
     {
         var currentNode = this.head;
-
         while (currentNode != null)
         {
             action(currentNode.Value);
-            currentNode = currentNode.Next;
+            currentNode = currentNode.NextNode;
         }
     }
 
     public IEnumerator<T> GetEnumerator()
     {
-        var current = this.head;
-
-        while (current != null)
+        var currentNode = this.head;
+        while (currentNode != null)
         {
-            yield return current.Value;
-            current = current.Next;
+            yield return currentNode.Value;
+            currentNode = currentNode.NextNode;
         }
     }
 
@@ -123,30 +114,31 @@ public class DoublyLinkedList<T> : IEnumerable<T>
 
     public T[] ToArray()
     {
-        var array = new T[this.Count];
-
+        var values = new T[this.Count];
         var current = this.head;
-        for (int i = 0; i < this.Count; i++)
+        var index = 0;
+
+        while (current != null)
         {
-            array[i] = current.Value;
-            current = current.Next;
+            values[index++] = current.Value;
+            current = current.NextNode;
         }
 
-        return array;
+        return values;
     }
 
-    private class ListNode
+    private class ListNode<T>
     {
         public ListNode(T value)
         {
             this.Value = value;
         }
 
-        public T Value { get; set; }
+        public T Value { get; private set; }
 
-        public ListNode Next { get; set; }
+        public ListNode<T> NextNode { get; set; }
 
-        public ListNode Previous { get; set; }
+        public ListNode<T> PrevNode { get; set; }
     }
 }
 
@@ -169,6 +161,9 @@ class Example
         list.ForEach(Console.WriteLine);
         Console.WriteLine("--------------------");
 
+        Console.WriteLine(string.Join(" ", list.ToArray()));
+        Console.WriteLine("--------------------");
+
         list.RemoveFirst();
         list.RemoveLast();
         list.RemoveFirst();
@@ -177,8 +172,8 @@ class Example
         Console.WriteLine("--------------------");
 
         list.RemoveLast();
-
         list.ForEach(Console.WriteLine);
         Console.WriteLine("--------------------");
+
     }
 }
