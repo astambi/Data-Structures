@@ -37,6 +37,7 @@ public class DoublyLinkedList<T> : IEnumerable<T>
         {
             var newTail = new ListNode<T>(element);
             newTail.PrevNode = this.tail;
+
             this.tail.NextNode = newTail;
             this.tail = newTail;
         }
@@ -52,6 +53,7 @@ public class DoublyLinkedList<T> : IEnumerable<T>
         }
 
         var removedElement = this.head.Value;
+        this.Count--;
 
         this.head = this.head.NextNode;
         if (this.head != null)
@@ -63,7 +65,6 @@ public class DoublyLinkedList<T> : IEnumerable<T>
             this.tail = null;
         }
 
-        this.Count--;
         return removedElement;
     }
 
@@ -75,6 +76,7 @@ public class DoublyLinkedList<T> : IEnumerable<T>
         }
 
         var removedElement = this.tail.Value;
+        this.Count--;
 
         this.tail = this.tail.PrevNode;
         if (this.tail != null)
@@ -86,7 +88,6 @@ public class DoublyLinkedList<T> : IEnumerable<T>
             this.head = null;
         }
 
-        this.Count--;
         return removedElement;
     }
 
@@ -115,13 +116,13 @@ public class DoublyLinkedList<T> : IEnumerable<T>
     public T[] ToArray()
     {
         var values = new T[this.Count];
-        var current = this.head;
+        var currentNode = this.head;
         var index = 0;
 
-        while (current != null)
+        while (currentNode != null)
         {
-            values[index++] = current.Value;
-            current = current.NextNode;
+            values[index++] = currentNode.Value;
+            currentNode = currentNode.NextNode;
         }
 
         return values;
@@ -134,14 +135,13 @@ public class DoublyLinkedList<T> : IEnumerable<T>
             this.Value = value;
         }
 
-        public T Value { get; private set; }
+        public T Value { get; }
 
         public ListNode<T> NextNode { get; set; }
 
         public ListNode<T> PrevNode { get; set; }
     }
 }
-
 
 class Example
 {
@@ -174,6 +174,5 @@ class Example
         list.RemoveLast();
         list.ForEach(Console.WriteLine);
         Console.WriteLine("--------------------");
-
     }
 }
