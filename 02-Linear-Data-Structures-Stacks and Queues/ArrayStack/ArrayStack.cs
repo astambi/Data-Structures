@@ -16,16 +16,18 @@ public class ArrayStack<T> : IEnumerable<T>
 
     public int Count { get; private set; }
 
+    // O(1) / O(n)
     public void Push(T element)
     {
         if (this.Count == this.elements.Length)
         {
-            this.Grow();
+            this.Grow(); // O(n)
         }
 
         this.elements[this.Count++] = element;
     }
 
+    // O(1)
     public T Pop()
     {
         if (this.Count == 0)

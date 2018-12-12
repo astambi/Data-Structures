@@ -15,7 +15,7 @@ public class CircularQueue<T>
 
     public int Count { get; private set; }
 
-    // O(1)
+    // O(1) / O(n)
     public void Enqueue(T element)
     {
         if (this.Count >= this.elements.Length)

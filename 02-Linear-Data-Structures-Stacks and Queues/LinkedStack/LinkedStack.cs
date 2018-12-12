@@ -8,12 +8,14 @@ public class LinkedStack<T> : IEnumerable<T>
 
     public int Count { get; private set; }
 
+    // O(1)
     public void Push(T item)
     {
         this.top = new Node<T>(item, this.top);
         this.Count++;
     }
 
+    // O(1)
     public T Pop()
     {
         if (this.Count == 0)
