@@ -101,15 +101,16 @@ public class BinarySearchTree<T> where T : IComparable<T>
         return parent;
     }
 
-    public bool Contains(T value)
+    private Node FindNode(T value)
     {
         var current = this.root;
+
         while (current != null)
         {
             var compare = value.CompareTo(current.Value);
             if (compare == 0)
             {
-                return true;
+                break;
             }
 
             if (compare < 0)
@@ -122,8 +123,11 @@ public class BinarySearchTree<T> where T : IComparable<T>
             }
         }
 
-        return false;
+        return current;
     }
+
+    public bool Contains(T value)
+        => this.FindNode(value) != null;
 
     // O(n)
     public void DeleteMin()
@@ -157,27 +161,10 @@ public class BinarySearchTree<T> where T : IComparable<T>
     // O(n)
     public BinarySearchTree<T> Search(T item)
     {
-        var current = this.root;
-        while (current != null)
-        {
-            var compare = item.CompareTo(current.Value);
-            if (compare == 0)
-            {
-                return new BinarySearchTree<T>(current);
-            }
-
-            if (compare < 0)
-            {
-                current = current.Left;
-            }
-            else if (compare > 0)
-            {
-                current = current.Right;
-            }
-        }
-
-        //return new BinarySearchTree<T>();
-        return null;
+        var node = this.FindNode(item);
+        return node != null
+            ? new BinarySearchTree<T>(node)
+            : null;
     }
 
     private void Copy(Node node)
@@ -192,6 +179,7 @@ public class BinarySearchTree<T> where T : IComparable<T>
         this.Copy(node.Right);
     }
 
+    // O(n)
     public IEnumerable<T> Range(T startRange, T endRange)
     {
         var result = new HashSet<T>();
@@ -227,9 +215,7 @@ public class BinarySearchTree<T> where T : IComparable<T>
     }
 
     public void EachInOrder(Action<T> action)
-    {
-        this.EachInOrder(this.root, action);
-    }
+        => this.EachInOrder(this.root, action);
 
     private void EachInOrder(Node node, Action<T> action)
     {
