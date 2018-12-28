@@ -185,6 +185,8 @@ public class BinarySearchTree<T> where T : IComparable<T>
         var result = new HashSet<T>();
         this.Range(startRange, endRange, this.root, result);
         return result;
+
+        //return this.Range(startRange, endRange, this.root);
     }
 
     private void Range(T start, T end, Node node, HashSet<T> result)
@@ -211,6 +213,43 @@ public class BinarySearchTree<T> where T : IComparable<T>
         if (compareEnd < 0) // node < end => traverse right
         {
             this.Range(start, end, node.Right, result);
+        }
+    }
+
+    private IEnumerable<T> Range(T start, T end, Node node)
+    {
+        if (node == null)
+        {
+            yield break;
+        }
+
+        var compareStart = node.Value.CompareTo(start);
+        var compareEnd = node.Value.CompareTo(end);
+
+        // InOrder traversal
+        if (compareStart > 0) // start < node => traverse left
+        {
+            var leftRange = this.Range(start, end, node.Left);
+
+            foreach (var element in leftRange)
+            {
+                yield return element;
+            }
+        }
+
+        if (compareStart >= 0 && compareEnd <= 0) // start <= node <= end
+        {
+            yield return node.Value;
+        }
+
+        if (compareEnd < 0) // node < end => tranverse right
+        {
+            var rightRange = this.Range(start, end, node.Right);
+
+            foreach (var element in rightRange)
+            {
+                yield return element;
+            }
         }
     }
 
