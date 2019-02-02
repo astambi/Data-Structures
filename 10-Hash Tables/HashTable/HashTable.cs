@@ -49,7 +49,7 @@ public class HashTable<TKey, TValue> : IEnumerable<KeyValue<TKey, TValue>>
 
         // Replace element value 
         var elements = this.slots[index];
-        foreach (var element in this.slots[index])
+        foreach (var element in elements)
         {
             if (element.Key.Equals(key))
             {
