@@ -121,18 +121,28 @@ public class HashTable<TKey, TValue> : IEnumerable<KeyValue<TKey, TValue>>
 
         if (elements != null)
         {
-            var current = elements.First;
-            while (current != null)
+            foreach (var element in elements)
             {
-                if (current.Value.Key.Equals(key))
+                if (element.Key.Equals(key))
                 {
-                    elements.Remove(current);
+                    elements.Remove(element);
                     this.Count--;
                     return true;
                 }
-
-                current = current.Next;
             }
+
+            //var current = elements.First;
+            //while (current != null)
+            //{
+            //    if (current.Value.Key.Equals(key))
+            //    {
+            //        elements.Remove(current);
+            //        this.Count--;
+            //        return true;
+            //    }
+
+            //    current = current.Next;
+            //}
         }
 
         return false;
