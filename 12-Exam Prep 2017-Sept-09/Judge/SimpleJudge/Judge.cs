@@ -33,7 +33,6 @@ public class Judge : IJudge
         }
 
         this.submissionsById[submission.Id] = submission;
-
     }
 
     public void AddUser(int userId)
