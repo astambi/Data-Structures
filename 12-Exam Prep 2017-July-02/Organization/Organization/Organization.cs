@@ -39,16 +39,9 @@ public class Organization : IOrganization
     }
 
     public bool Contains(Person person)
-    {
-        if (person == null
-            || !this.byName.ContainsKey(person.Name))
-        {
-            return false;
-        }
-
-        return this.byName[person.Name]
-            .Any(p => p.Salary == person.Salary);
-    }
+        => person != null
+        && this.byName.ContainsKey(person.Name)
+        && this.byName[person.Name].Contains(person);
 
     public bool ContainsByName(string name)
         => name != null
